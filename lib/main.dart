@@ -12,7 +12,7 @@ class SpacePod extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "SixtyFour",
-        brightness: Brightness.dark,
+        brightness: .dark,
         scaffoldBackgroundColor: Colors.grey.shade900,
         primaryColor: Color(0xff000064),
       ),
