@@ -24,6 +24,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       ChatMessageModel(parts: [ChatPartModel(text: event.chatTextMsg)]),
     );
     emit(ChatSuccessState(messages: messages));
-    await SpaceRepo.chatGenerationRepo(messages);
+    final generatedText = await SpaceRepo.chatGenerationRepo(messages);
+    if (generatedText.length > 0) {
+      messages.add(
+        ChatMessageModel(parts: [ChatPartModel(text: generatedText)]),
+      );
+      emit(ChatSuccessState(messages: messages));
+    }
   }
 }

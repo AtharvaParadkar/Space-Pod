@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                                 borderRadius: .circular(16),
                                 color: Colors.white.withValues(alpha: 0.1),
                               ),
-                              child: Text(messages[index].parts.first.text),
+                              child: Text(messages[index].parts.first.text,style: TextStyle(color: Colors.yellow.shade500),),
                             );
                           },
                         ),
