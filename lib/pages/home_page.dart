@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:space_pod/bloc/chat_bloc.dart';
 import 'package:space_pod/models/chat_message_model.dart';
 
@@ -29,6 +30,7 @@ class HomePage extends StatelessWidget {
                     image: DecorationImage(
                       image: AssetImage('assets/space_bg.png'),
                       fit: .cover,
+                      opacity: 0.5,
                     ),
                   ),
                   child: Column(
@@ -66,11 +68,38 @@ class HomePage extends StatelessWidget {
                                 borderRadius: .circular(16),
                                 color: Colors.white.withValues(alpha: 0.1),
                               ),
-                              child: Text(messages[index].parts.first.text,style: TextStyle(color: Colors.yellow.shade500),),
+                              child: Column(
+                                crossAxisAlignment: .start,
+                                children: [
+                                  Text(
+                                    messages[index].role,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    messages[index].parts.first.text,
+                                    style: TextStyle(
+                                      color: Colors.yellow.shade500,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             );
                           },
                         ),
                       ),
+                      if (chatBloc.isGenerating)
+                        Row(
+                          children: [
+                            SizedBox(
+                              height: 105,
+                              width: 105,
+                              child: Lottie.asset("assets/loader.json"),
+                            ),
+                            SizedBox(width: 20),
+                            Text("Loading....."),
+                          ],
+                        ),
                       Container(
                         height: 120,
                         padding: .symmetric(vertical: 30, horizontal: 16),
@@ -82,6 +111,7 @@ class HomePage extends StatelessWidget {
                                 style: TextStyle(color: Colors.black),
                                 cursorColor: Theme.of(context).primaryColor,
                                 decoration: InputDecoration(
+                                  hintText: "Ask anything",
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(100),
                                   ),
@@ -106,6 +136,7 @@ class HomePage extends StatelessWidget {
                                     ),
                                   );
                                   chatController.clear();
+                                  FocusManager.instance.primaryFocus!.unfocus();
                                 }
                               },
                               child: CircleAvatar(
